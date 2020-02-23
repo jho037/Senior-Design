@@ -1,0 +1,15 @@
+.measure {
+    font-family: courier; 
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 5%;
+    margin-top: 2%;
+  }
+
+.Signbutton {
+    background-color: white;
+}
