@@ -24,14 +24,7 @@ const particlesOptions = {  //used to edit the background particles
 function App() {
   return (
     <div>
-      <Landing></Landing>
-      {/* <Link /> */}
-      {/* <SignIn></SignIn> */}
-      {/* <Register></Register> */}
-      <Particles className='particles'
-          params={particlesOptions}
-        />
-
+      <Register />
     </div>
   );
 }
