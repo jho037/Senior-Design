@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
-const { receivePublicToken, getTransactions } = require("./controller");
 
 /* GET home page. */
-router.get('/', getTransactions);
+router.get('/', function (req, res, next) {
+  res.send("woooooooo");
+});
+
 module.exports = router;
