@@ -8,6 +8,12 @@ import Register from './components/Register/Register'
 import Particles from 'react-particles-js'
 import Banner from './components/banner/Banner'
 import Link from './components/Link.js'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link as RouterLink 
+} from "react-router-dom";
 
 const particlesOptions = {  //used to edit the background particles
   particles: {
@@ -21,21 +27,75 @@ const particlesOptions = {  //used to edit the background particles
   }
 }
 
-function App() {
+const initialState = { //default state for a user, just a function
+      route: 'home',
+      isSignedIn: false,
+      user: {
+        id: '',
+        name: '',
+        email: '',
+  }      
+}
+
+class App extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {
+        route: 'home',
+        isSignedIn: false,
+        user: {
+          id: '',
+          name: '',
+          email: '',
+        }
+    }
+}
+
+loadUser = (data) => {      //loaduser with data received when signin is called 
+  this.setState({user: {
+    id: data.id,
+    name: data.name,
+    email: data.email
+  }})
+}
+
+onRouteChange = (route) => { //on signout, reset the state to initialState
+  if(route === 'signout'){
+    this.setState(initialState)
+  } else if(route === 'home'){
+    this.setState({isSignedIn: true})
+  }
+  this.setState({route: route});
+}
+
+render(){
+  const { isSignedIn, route} = this.state;
   return (
     <div>
-      <Landing></Landing>
+      
+      
       {/* <Link /> */}
       {/* <SignIn></SignIn> */}
       {/* <Register></Register> */}
-      <Particles className='particles'
+      {/* <Particles className='particles'
           params={particlesOptions}
-        />
+        /> */}
+      { route === 'home' 
+        ? <div>
+          <Landing isSignedIn={isSignedIn} onRouteChange={this.onRouteChange}></Landing>
+        </div>
+
+        :(
+          route === 'signin'
+          ? <SignIn loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
+          : <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+        )
+        
+      }
 
     </div>
   );
 }
+  }
 
 export default App;
-
-
