@@ -47,14 +47,14 @@ class Register extends React.Component {
     render(){
         return (
             <div>
-            <div className="center">
-                <img className="logo" src="https://img.icons8.com/ios-filled/50/000000/airplane-tail-fin.png"/>
+                <div className="top">FinMan
+                <img src="https://img.icons8.com/ios-filled/50/000000/airplane-tail-fin.png"/>
                 </div>
             <article className="br6 ba b--black-60 mv4 w-80 w-50-m w-30-l mw6 shadow-5 center bg-white">
                 <main className="pa4 black-80">
                     <div className="measure">
                     <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
-                        <legend className="f2 fw1 ph0 mh4">Register</legend>
+                        <legend className="f2 fw1 ph0">Register</legend>
                         <div className="mt3">
                         <label className="db fw6 lh-copy f6" htmlFor="name">Name</label>
                         <input

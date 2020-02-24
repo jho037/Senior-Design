@@ -7,6 +7,7 @@ import SignIn from './components/SignIn/SignIn'
 import Register from './components/Register/Register'
 import Particles from 'react-particles-js'
 import Banner from './components/banner/Banner'
+import Link from './components/Link.js'
 
 const particlesOptions = {  //used to edit the background particles
   particles: {
@@ -14,7 +15,7 @@ const particlesOptions = {  //used to edit the background particles
       value: 200,
       density: {
         enable: true,
-        value_area: 400
+        value_area: 600
       }
     }
   }
@@ -22,31 +23,19 @@ const particlesOptions = {  //used to edit the background particles
 
 function App() {
   return (
-
     <div>
-
-      {/* <Landing></Landing>
-      <div id="home"> home</div>
-      <div id="features"> features</div>
-      <div id="pricing"> prices</div> */}
-      
-      {/* <Register></Register>
+      <Landing></Landing>
+      {/* <Link /> */}
+      {/* <SignIn></SignIn> */}
+      {/* <Register></Register> */}
       <Particles className='particles'
           params={particlesOptions}
-        /> */}
-      <Container fluid="true">
-        <Row >
-          <Col lg={{ span: 8, offset: 2 }}>
-            <Landing></Landing>
-            <Banner id="home"> home</Banner>
-            <div id="features"> features</div>
-            <div id="pricing"> prices</div>
-          </Col>
-        </Row>
-      </Container>
+        />
 
     </div>
   );
 }
 
 export default App;
+
+

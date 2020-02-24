@@ -10,6 +10,10 @@
     margin-top: 2%;
   }
 
-.Signbutton {
-    background-color: white;
+  .top {
+    text-align: center;
+    padding-top: 1em;
+    font-family: Impact, Charcoal, sans-serif;
+    font-weight: bold;
+    font-size: 270%;
 }
