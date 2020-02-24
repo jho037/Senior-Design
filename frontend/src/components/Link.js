@@ -15,26 +15,21 @@ class Link extends Component {
 
     handleOnSuccess(public_token, metadata) {
         // send token to client server
-        // axios.post("/auth/public_token", {
-        //     public_token: public_token
-        // });
-        fetch('/auth/public_token', {
-            method: 'POST', // or 'PUT'
-            body: public_token,
-        })
-        console.log("success")
+        axios.post("http://localhost:9000/plaid/get_access_token", {
+            public_token: public_token
+        });
     }
 
     handleOnExit() {
         // handle the case when your user exits Link
         // For the sake of this tutorial, we're not going to be doing anything here.
-        console.log("exit");
     }
 
     handleClick(res) {
-        axios.get("/transactions").then(res => {
+        axios.get("http://localhost:9000/plaid/").then(res => {
             this.setState({ transactions: res.data });
         });
+        console.log(this.state.transactions[0]);
     }
 
     render() {
@@ -42,7 +37,7 @@ class Link extends Component {
             <div>
                 <PlaidLink
                     clientName="React Plaid Setup"
-                    env="sandbox"
+                    env="development"
                     product={["auth", "transactions"]}
                     publicKey="d393e49d5cd80df0a7d0ac6562875a"
                     onExit={this.handleOnExit}
