@@ -45,9 +45,10 @@ class Register extends React.Component {
 
 
     render(){
+        const { onRouteChange } = this.props;
         return (
             <div>
-                <div className="top">FinMan
+                <div style={{cursor: 'pointer'}} onClick={ () => onRouteChange('landing')} className="top">FinMan
                 <img src="https://img.icons8.com/ios-filled/50/000000/airplane-tail-fin.png"/>
                 </div>
             <article className="br6 ba b--black-60 mv4 w-80 w-50-m w-30-l mw6 shadow-5 center bg-white">

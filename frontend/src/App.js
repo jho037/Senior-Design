@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { Container, Row, Col } from 'react-bootstrap';
-import Landing from './components/Landing.js'
+import Landing from './components/Landing/Landing.js'
 import HomeNav from './components/HomeNav/HomeNav'
 import SignIn from './components/SignIn/SignIn'
 import Register from './components/Register/Register'
@@ -41,7 +41,7 @@ class App extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-        route: 'home',
+        route: 'landing',
         isSignedIn: false,
         user: {
           id: '',
@@ -80,17 +80,24 @@ render(){
       {/* <Particles className='particles'
           params={particlesOptions}
         /> */}
-      { route === 'home' 
+      { route === 'landing' 
         ? <div>
           <Landing isSignedIn={isSignedIn} onRouteChange={this.onRouteChange}></Landing>
         </div>
 
-        :(
-          route === 'signin'
-          ? <SignIn loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
-          : <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
-        )
+        :
+          route === 'signin'?
+          <div>
+          <SignIn loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
+          </div>
         
+        :
+          route === 'register'?
+          <div>
+          <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
+          </div>
+        
+        : <div>NOOOOOO</div> 
       }
 
     </div>
