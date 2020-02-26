@@ -3,5 +3,25 @@
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover; /* Resize the background image to cover the entire container */
-    min-height: 350px;
+    /* min-height: 350px; */
+    /* max-height: 250px; */
 }
+
+@media only screen and (min-width: 1100px) {
+    #jumbo{
+        min-height: 350px;
+    }
+  }
+
+@media only screen and (min-width: 900px) {
+    #jumbo{
+        max-height: 250px;
+    }
+  }
+
+/* @media only screen and (max-width: 600px) {
+    #jumbo{
+        
+        max-height: 250px;
+    }
+  } */
