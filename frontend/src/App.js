@@ -72,9 +72,6 @@ render(){
   const { isSignedIn, route} = this.state;
   return (
     <div>
-
-      
-      
       {/* <Link /> */}
       {/* <SignIn></SignIn> */}
       {/* <Register></Register> */}
@@ -100,7 +97,6 @@ render(){
         
         : <div>NOOOOOO</div> 
       }
-
     </div>
   );
 }
