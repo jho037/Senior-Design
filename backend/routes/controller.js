@@ -32,6 +32,7 @@ const receivePublicToken = (req, res) => {
         });
         console.log("access token below");
         console.log(ACCESS_TOKEN);
+
     });
 };
 
@@ -43,7 +44,7 @@ const getTransactions = (req, res) => {
     let endDate = moment().format("YYYY-MM-DD");
     console.log("made it past variables");
     client.getTransactions(
-        ACCESS_TOKEN,
+        "access-development-911053bb-88f6-4cec-84cf-af346e7e8cbc",
         startDate,
         endDate,
         {
@@ -54,9 +55,13 @@ const getTransactions = (req, res) => {
             res.json({ transactions: transactionsResponse });
             // TRANSACTIONS LOGGED BELOW! 
             // They will show up in the terminal that you are running nodemon in.
-            console.log(transactionsResponse);
+            console.log(transactionsResponse.transactions);
         }
     );
+    client.getCategories(function (err, response) {
+        // Handle err
+        var categories = response.categories;
+    });
 };
 
 module.exports = {

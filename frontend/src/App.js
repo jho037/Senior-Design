@@ -24,7 +24,7 @@ const particlesOptions = {  //used to edit the background particles
 function App() {
   return (
     <div>
-      <Register />
+      <SignIn />
     </div>
   );
 }
