@@ -2,6 +2,7 @@ var express = require('express');
 var bcrypt = require("bcrypt");
 var router = express.Router();
 let User = require('../models/user.model');
+const mongoose = require('mongoose');
 /* GET users listing. */
 router.route('/').get((req, res) => {
   User.find()
@@ -23,7 +24,10 @@ router.route('/add').post((req, res) => {
     .then(user => {
       if (user.length == 0) {
         newUser.save()
-          .then(() => res.json('User added!'))
+          .then((user) => {
+            res.json(user);
+            console.log(user);
+          })
           .catch(err => res.status(400).json('Error: ' + err));
       }
       else {
@@ -33,6 +37,20 @@ router.route('/add').post((req, res) => {
     )
 });
 
+
+router.route('/update').post((req, res) => {
+  const id = req.body.id;
+  const accessToken = req.body.accessToken;
+  User.findById(id)
+    .then(user => {
+      user.accessToken = accessToken;
+
+      user.save()
+        .then(() => res.json(accessToken))
+        .catch(err => res.status(400).json('Error: ' + err));
+    })
+    .catch(err => res.status(400).json('Errors: ' + err));
+});
 
 router.route('/search').post((req, res) => {
 
@@ -48,8 +66,7 @@ router.route('/search').post((req, res) => {
       else {
         bcrypt.compare(req.body.password, user[0].password).then((result) => {
           if (result) {
-            res.send(user[0].id);
-            console.log("affwe")
+            res.send(user[0]);
           }
           else {
             res.send("1");

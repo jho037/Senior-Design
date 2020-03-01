@@ -52,16 +52,12 @@ const getTransactions = (req, res) => {
             offset: 0
         },
         function (error, transactionsResponse) {
-            res.json({ transactions: transactionsResponse });
+            res.json({ transactions: transactionsResponse.transactions });
             // TRANSACTIONS LOGGED BELOW! 
             // They will show up in the terminal that you are running nodemon in.
             console.log(transactionsResponse.transactions);
         }
     );
-    client.getCategories(function (err, response) {
-        // Handle err
-        var categories = response.categories;
-    });
 };
 
 module.exports = {
