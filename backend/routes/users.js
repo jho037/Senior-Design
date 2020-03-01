@@ -41,16 +41,18 @@ router.route('/search').post((req, res) => {
   })
     .then(user => {
 
+
       if (user.length == 0) {
-        res.json({ "msg": "0" });
+        res.send("0");
       }
       else {
         bcrypt.compare(req.body.password, user[0].password).then((result) => {
           if (result) {
-            res.json({ "msg": user[0].id });
+            res.send(user[0].id);
+            console.log("affwe")
           }
           else {
-            res.json({ "msg": "1" });
+            res.send("1");
           }
         });
       }

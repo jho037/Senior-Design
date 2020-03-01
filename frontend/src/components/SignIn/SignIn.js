@@ -29,9 +29,10 @@ class SignIn extends React.Component {
                 password: this.state.signInPassword
             })
         })
-            .then(response => {
-                this.setState({ msg: response.json() });
-                console.log(this.state.msg)
+            .then(res => res.text())
+            .then((res) => {
+                this.setState({ msg: res });
+                console.log(this.state.msg);
             })
             .then(() => {
                 if (this.state.msg != 0 || this.state.msg != 1) {
@@ -46,13 +47,8 @@ class SignIn extends React.Component {
         const { onRouteChange } = this.props;
         return (
             <div>
-<<<<<<< HEAD
-                <div className="top">FinMan
+                <div style={{ cursor: 'pointer' }} onClick={() => onRouteChange('landing')} className="top">FinMan
                 <img src="https://img.icons8.com/ios-filled/50/000000/airplane-tail-fin.png" />
-=======
-                <div style={{cursor: 'pointer'}} onClick={ () => onRouteChange('landing')} className="top">FinMan
-                <img src="https://img.icons8.com/ios-filled/50/000000/airplane-tail-fin.png"/>
->>>>>>> b57f940c05b8e83cab8118603628af612c490a13
                 </div>
                 <article className="br6 ba b--black-60 mv4 w-80-ns w-100-m w-30-l mw6 shadow-5 center bg-white">
                     <main className="pa4 black-80">
