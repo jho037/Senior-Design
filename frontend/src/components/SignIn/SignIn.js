@@ -29,14 +29,17 @@ class SignIn extends React.Component {
                 password: this.state.signInPassword
             })
         })
-            .then(res => res.text())
-            .then((res) => {
-                this.setState({ msg: res });
-                console.log(this.state.msg);
+            .then(response => response.json())
+            .then(user => {
+                if (user._id) {
+                    this.props.loadUser(user);
+                    this.props.onRouteChange('home');
+                }
             })
             .then(() => {
                 if (this.state.msg != 0 || this.state.msg != 1) {
                     //this.props.onRouteChange('home')
+
                 }
 
             })

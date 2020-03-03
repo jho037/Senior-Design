@@ -7,7 +7,8 @@ class Link extends Component {
         super();
 
         this.state = {
-            transactions: []
+            transactions: [],
+            temp: ''
         };
 
         this.handleClick = this.handleClick.bind(this);
@@ -26,10 +27,16 @@ class Link extends Component {
     }
 
     handleClick(res) {
-        axios.get("http://localhost:9000/plaid/").then(res => {
-            this.setState({ transactions: res.data });
-        });
-        console.log(this.state.transactions[0]);
+
+        fetch("http://localhost:9000/plaid/")
+            .then(response => response.json())
+            .then(res => {
+                const t = res.transactions;
+                this.setState({ transactions: t });
+                this.forceUpdate();
+                console.log(t);
+            });
+        console.log(this.state.transactions);
     }
 
     render() {
