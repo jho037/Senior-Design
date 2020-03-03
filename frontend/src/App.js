@@ -7,7 +7,8 @@ import SignIn from './components/SignIn/SignIn'
 import Register from './components/Register/Register'
 import Particles from 'react-particles-js'
 import Banner from './components/banner/Banner'
-import Link from './components/Link.js'
+import Link from './components/Link'
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -101,7 +102,6 @@ class App extends React.Component {
               route === 'link' ?
                 <div>
                   <Link user={this.state.user.id} onRouteChange={this.onRouteChange} />
-                  asdf
                 </div>
 
                 : <div>{console.log(this.state.user)}</div>

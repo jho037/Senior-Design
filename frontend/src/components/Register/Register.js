@@ -94,7 +94,7 @@ class Register extends React.Component {
                                 <div className="mv3">
                                     <label className="db fw6 lh-copy f6" htmlFor="password">Phone Number (Optional)</label>
                                     <input
-                                        className="b pa2 input-reset ba bg-transparent hover-bg-black hover-gray w-70"
+                                        className="b pa2 input-reset ba bg-transparent hover-bg-black hover-gray w-100"
                                         type="phone"
                                         name="phone-number"
                                         id="phone-number"
