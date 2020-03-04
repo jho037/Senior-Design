@@ -1,0 +1,16 @@
+.wrapper {
+    padding: 2%;
+    width: 96%;
+    display: inline-block;
+}
+
+.sub.wrapper {
+    height: 300px;
+    width: 300px;
+}
+
+@media (min-width: 700px) {
+    .wrapper {
+        width: 29%;
+    }
+}
