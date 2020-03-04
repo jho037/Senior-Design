@@ -7,7 +7,7 @@ import SignIn from './components/SignIn/SignIn'
 import Register from './components/Register/Register'
 import Particles from 'react-particles-js'
 import Banner from './components/banner/Banner'
-import Link from './components/Link'
+import Link from './components/Link/Link'
 
 import {
   BrowserRouter as Router,
