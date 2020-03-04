@@ -2,23 +2,46 @@ import React, { Component } from "react";
 import PlaidLink from "react-plaid-link";
 import axios from "axios";
 
-class Link extends Component {
-    constructor() {
-        super();
+class Link extends React.Component {
+    constructor(props) {
+        super(props);
 
         this.state = {
             transactions: [],
             temp: ''
-        };
+        }
 
         this.handleClick = this.handleClick.bind(this);
+        this.handleOnSuccess = this.handleOnSuccess.bind(this);
     }
 
     handleOnSuccess(public_token, metadata) {
         // send token to client server
-        axios.post("http://localhost:9000/plaid/get_access_token", {
-            public_token: public_token
-        });
+        console.log(this.props.user);
+        fetch("http://localhost:9000/plaid/get_access_token", {
+            method: 'post',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                public_token: public_token
+            })
+        })
+            .then(response => response.json())
+            .then(res => {
+                fetch("http://localhost:9000/users/update/access", {
+                    method: 'post',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        id: this.props.user,
+                        accessToken: res.access_token
+                    })
+                })
+                    .then(response => response.json())
+                    .then(res => {
+                        console.log(res.aT)
+                        this.handleClick(res.aT);
+                    })
+
+            });
     }
 
     handleOnExit() {
@@ -27,16 +50,24 @@ class Link extends Component {
     }
 
     handleClick(res) {
-
-        fetch("http://localhost:9000/plaid/")
+        fetch("http://localhost:9000/plaid/", {
+            method: 'post',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                accessToken: res
+            })
+        })
             .then(response => response.json())
             .then(res => {
-                const t = res.transactions;
-                this.setState({ transactions: t });
-                this.forceUpdate();
-                console.log(t);
+                fetch("http://localhost:9000/users/update/transactions", {
+                    method: 'post',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        id: this.props.user,
+                        transactions: res.transactions
+                    })
+                })
             });
-        console.log(this.state.transactions);
     }
 
     render() {
@@ -53,9 +84,7 @@ class Link extends Component {
                 >
                     Open Link and connect your bank!
         </PlaidLink>
-                <div>
-                    <button onClick={this.handleClick}>Get Transactions</button>
-                </div>
+                <button onClick={this.handleClick("access-development-1b414165-123e-4b6e-a553-81e972105512")}></button>
             </div>
         );
     }

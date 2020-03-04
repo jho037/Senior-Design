@@ -38,7 +38,7 @@ router.route('/add').post((req, res) => {
 });
 
 
-router.route('/update').post((req, res) => {
+router.route('/update/access').post((req, res) => {
   const id = req.body.id;
   const accessToken = req.body.accessToken;
   User.findById(id)
@@ -46,7 +46,21 @@ router.route('/update').post((req, res) => {
       user.accessToken = accessToken;
 
       user.save()
-        .then(() => res.json(accessToken))
+        .then(() => res.json({ aT: accessToken }))
+        .catch(err => res.status(400).json('Error: ' + err));
+    })
+    .catch(err => res.status(400).json('Errors: ' + err));
+});
+
+router.route('/update/transactions').post((req, res) => {
+  const id = req.body.id;
+  const transactions = req.body.transactions;
+  User.findById(id)
+    .then(user => {
+      user.transactions = transactions;
+
+      user.save()
+        .then(() => res.json(transactions))
         .catch(err => res.status(400).json('Error: ' + err));
     })
     .catch(err => res.status(400).json('Errors: ' + err));
@@ -76,6 +90,20 @@ router.route('/search').post((req, res) => {
 
     })
     .catch(err => res.status(400).json('Errors: ' + err));
+});
+
+router.route("/searchTrans").post((req, res) => {
+  var trans = [];
+  User.findById(req.body.id)
+    .then(user => {
+      trans = user.transactions.map(indx => {
+        temp = [];
+        temp.push(indx.amount);
+        temp.push(indx.category);
+        return temp;
+      });
+      res.json(trans);
+    })
 });
 
 

@@ -42,9 +42,9 @@ const getTransactions = (req, res) => {
         .subtract(30, "days")
         .format("YYYY-MM-DD");
     let endDate = moment().format("YYYY-MM-DD");
-    console.log("made it past variables");
+    console.log(req.body.accessToken);
     client.getTransactions(
-        "access-development-911053bb-88f6-4cec-84cf-af346e7e8cbc",
+        req.body.accessToken,
         startDate,
         endDate,
         {
