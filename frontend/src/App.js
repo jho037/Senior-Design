@@ -6,14 +6,15 @@ import HomeNav from './components/HomeNav/HomeNav'
 import SignIn from './components/SignIn/SignIn'
 import Register from './components/Register/Register'
 import Particles from 'react-particles-js'
-import Banner from './components/banner/Banner'
-import Link from './components/Link.js'
+import Link from './components/Link/Link.js'
+import Bigchart from './components/Charts/Bigchart.js'
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link as RouterLink 
 } from "react-router-dom";
+
 
 const particlesOptions = {  //used to edit the background particles
   particles: {
@@ -72,13 +73,15 @@ render(){
   const { isSignedIn, route} = this.state;
   return (
     <div>
-      {/* <Link /> */}
+      {/* <HomeNav></HomeNav>
+      <Bigchart></Bigchart> */}
+      <Link />
       {/* <SignIn></SignIn> */}
       {/* <Register></Register> */}
       {/* <Particles className='particles'
           params={particlesOptions}
         /> */}
-      { route === 'landing' 
+      {/* { route === 'landing' 
         ? <div>
           <Landing isSignedIn={isSignedIn} onRouteChange={this.onRouteChange}></Landing>
         </div>
@@ -96,7 +99,7 @@ render(){
           </div>
         
         : <div>NOOOOOO</div> 
-      }
+      } */}
     </div>
   );
 }

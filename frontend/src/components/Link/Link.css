@@ -1,0 +1,25 @@
+.editme {
+    margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.card-body {
+    white-space: nowrap;
+    background-color: black;
+    text-align: center;
+    color: white;
+}
+
+.top {
+    text-align: center;
+    color: white;
+    padding-top: 3em;
+}
+
+.card-img-top {
+    max-width: 500px;
+    max-height: 500px;
+}
