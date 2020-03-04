@@ -31,7 +31,7 @@ const initialState = { //default state for a user, just a function
   route: 'home',
   isSignedIn: false,
   user: {
-    id: '',
+    id: '5e4c85bebf08774aeaccf307',
     name: '',
     email: '',
   }
@@ -44,7 +44,7 @@ class App extends React.Component {
       route: 'landing',
       isSignedIn: false,
       user: {
-        id: '',
+        id: '5e5f054af2ef047d32fbb4a7',
         name: '',
         email: '',
       }
