@@ -8,6 +8,7 @@ import Register from './components/Register/Register'
 import Particles from 'react-particles-js'
 import Link from './components/Link/Link.js'
 import Bigchart from './components/Charts/Bigchart.js'
+import Transactions from './components/Transactions/transactions'
 import {
   BrowserRouter as Router,
   Switch,
@@ -132,7 +133,12 @@ class App extends React.Component {
                     <HomeNav user={this.state.user.id} onRouteChange={this.onRouteChange} updateTransactions={this.updateTransactions} />
                     <Bigchart user={this.state.user.id} ></Bigchart>
                   </div>
-                  : <div>ohasdfasdf</div>
+                  :
+                  route === 'transactions' ?
+                    <div>
+                      <Transactions user={this.state.user.id} onRouteChange={this.onRouteChange} />
+                    </div>
+                    : <div>ohasdfasdf</div>
         }
       </div>
     );

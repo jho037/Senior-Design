@@ -13,7 +13,7 @@ export default class Bigchart extends React.Component {
     componentDidMount() {
         var dataCat = [];
         var dataAmo = [];
-        fetch("http://localhost:9000/users/searchTrans", {
+        fetch("http://localhost:9000/users/pieChartTrans", {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -26,14 +26,14 @@ export default class Bigchart extends React.Component {
             });
 
     }
-    setHandler = (cat, amo) => {
-        console.log(cat);
-        console.log(amo);
-        this.setState({ categories: cat, amounts: amo })
-        console.log(this.state.categories);
-        console.log(this.state.amounts);
-        this.getChartData();
-    }
+    // setHandler = (cat, amo) => {
+    //     console.log(cat);
+    //     console.log(amo);
+    //     this.setState({ categories: cat, amounts: amo })
+    //     console.log(this.state.categories);
+    //     console.log(this.state.amounts);
+    //     this.getChartData();
+    // }
     getChartData(cat, amo) {
         this.setState({
             chartData: {
