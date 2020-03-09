@@ -71,13 +71,32 @@ class App extends React.Component {
     this.setState({ route: route });
   }
 
+  updateTransactions(res, uid) {
+    fetch("http://localhost:9000/plaid/", {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        accessToken: res
+      })
+    })
+      .then(response => response.json())
+      .then(res => {
+        fetch("http://localhost:9000/users/update/transactions", {
+          method: 'post',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            id: uid,
+            transactions: res.transactions
+          })
+        })
+      });
+  }
+
   render() {
     const { isSignedIn, route } = this.state;
     return (
       <div>
-        {/* <HomeNav></HomeNav>
-      <Bigchart></Bigchart> */}
-        <Link user={this.state.user.id} />
+        {/* <Link user={this.state.user.id} /> */}
         {/* <SignIn></SignIn> */}
         {/* <Register></Register> */}
         {/* <Particles className='particles'
@@ -91,7 +110,7 @@ class App extends React.Component {
           :
           route === 'signin' ?
             <div>
-              <SignIn loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
+              <SignIn loadUser={this.loadUser} onRouteChange={this.onRouteChange} user={this.user} updateTransactions={this.updateTransactions} />
             </div>
 
             :
@@ -103,11 +122,17 @@ class App extends React.Component {
               :
               route === 'link' ?
                 <div>
-                  <Link user={this.state.user.id} onRouteChange={this.onRouteChange} />
+                  <Link user={this.state.user.id} onRouteChange={this.onRouteChange} updateTransactions={this.updateTransactions} />
                   asdf
                 </div>
 
-                : <div>{console.log(this.state.user)}</div>
+                :
+                route === 'home' ?
+                  <div>
+                    <HomeNav user={this.state.user.id} onRouteChange={this.onRouteChange} updateTransactions={this.updateTransactions} />
+                    <Bigchart user={this.state.user.id} ></Bigchart>
+                  </div>
+                  : <div>ohasdfasdf</div>
         }
       </div>
     );

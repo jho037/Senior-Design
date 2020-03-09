@@ -34,6 +34,7 @@ class SignIn extends React.Component {
                 if (user._id) {
                     this.props.loadUser(user);
                     this.props.onRouteChange('home');
+                    this.props.updateTransactions(user.accessToken, user._id);
                 }
             })
             .then(() => {

@@ -4,21 +4,43 @@ export default class Bigchart extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            chartData:{}
+            chartData: {},
+            categories: [],
+            amounts: []
         }
     }
 
-    componentWillMount(){
+    componentDidMount() {
+        var dataCat = [];
+        var dataAmo = [];
+        fetch("http://localhost:9000/users/searchTrans", {
+            method: 'post',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                id: this.props.user
+            })
+        })
+            .then(response => response.json())
+            .then(res => {
+                this.getChartData(res.categories, res.amounts)
+            });
+
+    }
+    setHandler = (cat, amo) => {
+        console.log(cat);
+        console.log(amo);
+        this.setState({ categories: cat, amounts: amo })
+        console.log(this.state.categories);
+        console.log(this.state.amounts);
         this.getChartData();
     }
-
-    getChartData(){
+    getChartData(cat, amo) {
         this.setState({
-            chartData:{
-                labels: ['Red1', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            chartData: {
+                labels: cat,
                 datasets: [{
                     label: 'Colors',
-                    data: [12, 19, 3, 5, 2, 3],
+                    data: amo,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
@@ -27,16 +49,16 @@ export default class Bigchart extends React.Component {
                         'rgba(153, 102, 255, 0.2)',
                         'rgba(255, 159, 64, 0.2)'
                     ]
-                }   
-            ]
-        }
+                }
+                ]
+            }
         });
     }
 
     render() {
         return (
             <div className="Bigchart">
-                <Chart chartData={this.state.chartData} legendPosition="bottom"/>
+                <Chart chartData={this.state.chartData} legendPosition="bottom" />
             </div>
         )
     }

@@ -100,9 +100,27 @@ router.route("/searchTrans").post((req, res) => {
         temp = [];
         temp.push(indx.amount);
         temp.push(indx.category);
+        temp.push(indx.name);
+        temp.push(indx.date);
         return temp;
       });
-      res.json(trans);
+      var cats = [];
+      var amou = [];
+      var data = {};
+      trans.map(indx => {
+        cats.push(indx[1][0]);
+        amou.push(indx[0]);
+      })
+      for (var x = 0; x < cats.length; x++) {
+        if (cats[x] in data) {
+          data[cats[x]] = data[cats[x]] + amou[x];
+        }
+        else
+          data[cats[x]] = amou[x];
+      }
+      cats = Object.keys(data)
+      amou = Object.values(data)
+      res.json({ categories: cats, amounts: amou });
     })
 });
 
