@@ -104,6 +104,22 @@ router.route("/searchTrans").post((req, res) => {
         temp.push(indx.date);
         return temp;
       });
+      res.json(trans);
+    })
+});
+
+router.route("/pieChartTrans").post((req, res) => {
+  var trans = [];
+  User.findById(req.body.id)
+    .then(user => {
+      trans = user.transactions.map(indx => {
+        temp = [];
+        temp.push(indx.amount);
+        temp.push(indx.category);
+        temp.push(indx.name);
+        temp.push(indx.date);
+        return temp;
+      });
       var cats = [];
       var amou = [];
       var data = {};
