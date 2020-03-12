@@ -39,9 +39,9 @@ class Link extends React.Component {
                 })
                     .then(response => response.json())
                     .then(res => {
-                        console.log(res.aT)
-                        this.props.updateTransactions(res.aT, this.props.user);
-                        this.props.onRouteChange('home');
+                        this.props.loadUser(res);
+                        this.props.updateTransactions(res.accessToken, res._id);
+                        this.props.onRouteChange('goals');
                     })
 
             });

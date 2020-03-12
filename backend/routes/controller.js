@@ -39,7 +39,7 @@ const receivePublicToken = (req, res) => {
 const getTransactions = (req, res) => {
     // Pull transactions for the last 30 days
     let startDate = moment()
-        .subtract(30, "days")
+        .subtract(req.body.days, "days")
         .format("YYYY-MM-DD");
     let endDate = moment().format("YYYY-MM-DD");
     console.log(req.body.accessToken);

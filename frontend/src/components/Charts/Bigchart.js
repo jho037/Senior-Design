@@ -24,6 +24,9 @@ export default class Bigchart extends React.Component {
             .then(res => {
                 this.getChartData(res.categories, res.amounts)
             });
+        if (this.state.categories[0] == null) {
+            this.forceUpdate();
+        }
 
     }
     // setHandler = (cat, amo) => {
