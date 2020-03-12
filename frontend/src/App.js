@@ -1,14 +1,13 @@
 import React from 'react';
 import './App.css';
-import { Container, Row, Col } from 'react-bootstrap';
 import Landing from './components/Landing/Landing.js'
 import HomeNav from './components/HomeNav/HomeNav'
 import SignIn from './components/SignIn/SignIn'
 import Register from './components/Register/Register'
-import Particles from 'react-particles-js'
 import Link from './components/Link/Link.js'
 import Bigchart from './components/Charts/Bigchart.js'
 import Transactions from './components/Transactions/transactions'
+import Goal from './components/Goal/Goal.js'
 import {
   BrowserRouter as Router,
   Switch,
@@ -33,9 +32,10 @@ const initialState = { //default state for a user, just a function
   route: 'home',
   isSignedIn: false,
   user: {
-    id: '5e4c85bebf08774aeaccf307',
+    id: '5e659e704209f21f9746a50e',
     name: '',
     email: '',
+    accessToken: ''
   }
 }
 
@@ -46,7 +46,7 @@ class App extends React.Component {
       route: 'landing',
       isSignedIn: false,
       user: {
-        id: '5e5f054af2ef047d32fbb4a7',
+        id: '5e659e704209f21f9746a50e',
         name: '',
         email: '',
       }
@@ -58,7 +58,8 @@ class App extends React.Component {
       user: {
         id: data._id,
         name: data.name,
-        email: data.email
+        email: data.email,
+        accessToken: data.accessToken
       }
     })
   }
@@ -72,12 +73,13 @@ class App extends React.Component {
     this.setState({ route: route });
   }
 
-  updateTransactions(res, uid) {
+  updateTransactions(at, uid) {
     fetch("http://localhost:9000/plaid/", {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        accessToken: res
+        accessToken: at,
+        days: 30
       })
     })
       .then(response => response.json())
@@ -123,7 +125,7 @@ class App extends React.Component {
               :
               route === 'link' ?
                 <div>
-                  <Link user={this.state.user.id} onRouteChange={this.onRouteChange} updateTransactions={this.updateTransactions} />
+                  <Link loadUser={this.loadUser} user={this.state.user.id} onRouteChange={this.onRouteChange} updateTransactions={this.updateTransactions} />
                   asdf
                 </div>
 
@@ -136,9 +138,14 @@ class App extends React.Component {
                   :
                   route === 'transactions' ?
                     <div>
-                      <Transactions user={this.state.user.id} onRouteChange={this.onRouteChange} />
+                      <Transactions user={this.state.user} onRouteChange={this.onRouteChange} />
                     </div>
-                    : <div>ohasdfasdf</div>
+                    :
+                    route === 'goals' ?
+                      <div>
+                        <Goal user={this.state.user} onRouteChange={this.onRouteChange}></Goal>
+                      </div>
+                      : <div>ohasdfasdf</div>
         }
       </div>
     );

@@ -26,7 +26,6 @@ router.route('/add').post((req, res) => {
         newUser.save()
           .then((user) => {
             res.json(user);
-            console.log(user);
           })
           .catch(err => res.status(400).json('Error: ' + err));
       }
@@ -46,7 +45,7 @@ router.route('/update/access').post((req, res) => {
       user.accessToken = accessToken;
 
       user.save()
-        .then(() => res.json({ aT: accessToken }))
+        .then(() => res.json(user))
         .catch(err => res.status(400).json('Error: ' + err));
     })
     .catch(err => res.status(400).json('Errors: ' + err));
@@ -90,6 +89,19 @@ router.route('/search').post((req, res) => {
 
     })
     .catch(err => res.status(400).json('Errors: ' + err));
+});
+
+router.route('/getAccesstoken').post((req, res) => {
+
+  User.find({
+    email: req.body.email
+  })
+    .then(user => {
+      res.json(user[0].accessToken);
+
+    })
+    .catch(err => res.status(400).json('Errors: ' + err));
+
 });
 
 router.route("/searchTrans").post((req, res) => {
