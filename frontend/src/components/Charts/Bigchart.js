@@ -5,8 +5,12 @@ export default class Bigchart extends React.Component {
         super(props);
         this.state = {
             chartData: {},
+            pieData: {},
+            lineData: {},
             categories: [],
-            amounts: []
+            pamounts: [],
+            dates: [],
+            lamounts: []
         }
     }
 
@@ -22,7 +26,19 @@ export default class Bigchart extends React.Component {
         })
             .then(response => response.json())
             .then(res => {
-                this.getChartData(res.categories, res.amounts)
+                this.getChartData(res.categories, res.pamounts)
+            });
+        
+        fetch("http://localhost:9000/users/lineChartTrans", {
+            method: 'post',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                id: this.props.user
+            })
+        })
+            .then(response => response.json())
+            .then(res => {
+                this.getChartData(res.dates, res.lamounts)
             });
         if (this.state.categories[0] == null) {
             this.forceUpdate();
@@ -39,7 +55,8 @@ export default class Bigchart extends React.Component {
     // }
     getChartData(cat, amo) {
         this.setState({
-            chartData: {
+            // chartData: {
+            pieData: {
                 labels: cat,
                 datasets: [{
                     label: 'Colors',
@@ -54,6 +71,16 @@ export default class Bigchart extends React.Component {
                     ]
                 }
                 ]
+            },
+            lineData: {
+                labels: cat,
+                datasets: [{
+                    label: 'Dates',
+                    data: amo,
+                    backgroundColor: [
+                        'rgba(255, 206, 86, 0.2)'
+                    ]
+                }]
             }
         });
     }
