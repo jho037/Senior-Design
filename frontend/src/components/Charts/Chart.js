@@ -6,7 +6,8 @@ class Chart extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            chartData: props.chartData
+            pieData: props.pieData,
+            lineData: props.lineData
         }
     }
 
@@ -22,47 +23,53 @@ class Chart extends Component {
                 <Container>
                     <Row>
                         <Col lg="6">
-                            <div className="sub wrapper">
-                                <Line
-                                    data={this.props.chartData}
-                                    options={{
-                                        //maintainAspectRatio: false,
-                                        title: {
-                                            display: this.props.displayTitle,
-                                            text: 'LINE',
-                                            fontSize: 25
-                                        },
-                                        legend: {
-                                            display: this.props.displayLegend,
-                                            position: this.props.legendPosition
-                                        },
-                                        // animation: {
-                                        //     onProgress: function(animation) {
-                                        //         progress.value = animation.animationObject.currentStep / animation.animationObject.numSteps;
-                                        //     }
-                                        // }
-                                    }}
-                                />
+                            <div className="bg-light-blue mv6">
+                                <div className="sub wrapper">
+                                    <Line
+                                        data={this.props.lineData}
+                                        options={{
+                                            //maintainAspectRatio: false,
+                                            title: {
+                                                display: this.props.displayTitle,
+                                                text: 'LINE',
+                                                fontSize: 25
+                                            },
+                                            legend: {
+                                                display: this.props.displayLegend,
+                                                position: this.props.legendPosition
+                                            },
+                                            // animation: {
+                                            //     onProgress: function(animation) {
+                                            //         progress.value = animation.animationObject.currentStep / animation.animationObject.numSteps;
+                                            //     }
+                                            // }
+                                        }}
+                                    />
+                                </div>
                             </div>
+                            
                         </Col>
                         <Col lg="6">
-                            <div className="sub wrapper">
-                                <Pie
-                                    data={this.props.chartData}
-                                    options={{
-                                        //maintainAspectRatio: false,
-                                        title: {
-                                            display: this.props.displayTitle,
-                                            text: 'PIE',
-                                            fontSize: 25
-                                        },
-                                        legend: {
-                                            display: this.props.displayLegend,
-                                            position: this.props.legendPosition
-                                        }
-                                    }}
-                                />
+                            <div className="bg-light-blue mv6">
+                                <div className="sub wrapper">
+                                    <Pie
+                                        data={this.props.pieData}
+                                        options={{
+                                            //maintainAspectRatio: false,
+                                            title: {
+                                                display: this.props.displayTitle,
+                                                text: 'PIE',
+                                                fontSize: 25
+                                            },
+                                            legend: {
+                                                display: this.props.displayLegend,
+                                                position: this.props.legendPosition
+                                            }
+                                        }}
+                                    />
+                                </div>
                             </div>
+                            
                         </Col>
                     </Row>
                 </Container>

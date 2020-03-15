@@ -26,7 +26,7 @@ export default class Bigchart extends React.Component {
         })
             .then(response => response.json())
             .then(res => {
-                this.getChartData(res.categories, res.pamounts)
+                this.getPieData(res.categories, res.pamounts)
             });
         
         fetch("http://localhost:9000/users/lineChartTrans", {
@@ -38,7 +38,7 @@ export default class Bigchart extends React.Component {
         })
             .then(response => response.json())
             .then(res => {
-                this.getChartData(res.dates, res.lamounts)
+                this.getLineData(res.dates, res.lamounts)
             });
         if (this.state.categories[0] == null) {
             this.forceUpdate();
@@ -53,7 +53,7 @@ export default class Bigchart extends React.Component {
     //     console.log(this.state.amounts);
     //     this.getChartData();
     // }
-    getChartData(cat, amo) {
+    getPieData(cat, amo) {
         this.setState({
             // chartData: {
             pieData: {
@@ -69,13 +69,17 @@ export default class Bigchart extends React.Component {
                         'rgba(153, 102, 255, 0.2)',
                         'rgba(255, 159, 64, 0.2)'
                     ]
-                }
-                ]
-            },
+                }]
+            }
+        });
+    }
+
+    getLineData(dat, amo) {
+        this.setState({
             lineData: {
-                labels: cat,
+                labels: dat,
                 datasets: [{
-                    label: 'Dates',
+                    label: 'Purchases',
                     data: amo,
                     backgroundColor: [
                         'rgba(255, 206, 86, 0.2)'
@@ -88,7 +92,7 @@ export default class Bigchart extends React.Component {
     render() {
         return (
             <div className="Bigchart">
-                <Chart chartData={this.state.chartData} legendPosition="bottom" />
+                <Chart pieData={this.state.pieData} lineData={this.state.lineData} legendPosition="bottom" />
             </div>
         )
     }

@@ -1,13 +1,14 @@
 import React from 'react';
 import './App.css';
+import { Container, Row, Col } from 'react-bootstrap';
 import Landing from './components/Landing/Landing.js'
 import HomeNav from './components/HomeNav/HomeNav'
 import SignIn from './components/SignIn/SignIn'
 import Register from './components/Register/Register'
+import Particles from 'react-particles-js'
 import Link from './components/Link/Link.js'
 import Bigchart from './components/Charts/Bigchart.js'
 import Transactions from './components/Transactions/transactions'
-import Goal from './components/Goal/Goal.js'
 import {
   BrowserRouter as Router,
   Switch,
@@ -32,10 +33,9 @@ const initialState = { //default state for a user, just a function
   route: 'home',
   isSignedIn: false,
   user: {
-    id: '5e659e704209f21f9746a50e',
+    id: '5e4c85bebf08774aeaccf307',
     name: '',
     email: '',
-    accessToken: ''
   }
 }
 
@@ -46,7 +46,7 @@ class App extends React.Component {
       route: 'landing',
       isSignedIn: false,
       user: {
-        id: '5e659e704209f21f9746a50e',
+        id: '5e6ab82a72602252d7145a68',
         name: '',
         email: '',
       }
@@ -58,8 +58,7 @@ class App extends React.Component {
       user: {
         id: data._id,
         name: data.name,
-        email: data.email,
-        accessToken: data.accessToken
+        email: data.email
       }
     })
   }
@@ -73,13 +72,12 @@ class App extends React.Component {
     this.setState({ route: route });
   }
 
-  updateTransactions(at, uid) {
+  updateTransactions(res, uid) {
     fetch("http://localhost:9000/plaid/", {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        accessToken: at,
-        days: 30
+        accessToken: res
       })
     })
       .then(response => response.json())
@@ -125,27 +123,29 @@ class App extends React.Component {
               :
               route === 'link' ?
                 <div>
-                  <Link loadUser={this.loadUser} user={this.state.user.id} onRouteChange={this.onRouteChange} updateTransactions={this.updateTransactions} />
+                  <Link user={this.state.user.id} onRouteChange={this.onRouteChange} updateTransactions={this.updateTransactions} />
                   asdf
                 </div>
 
                 :
                 route === 'home' ?
-                  <div>
-                    <HomeNav user={this.state.user.id} onRouteChange={this.onRouteChange} updateTransactions={this.updateTransactions} />
-                    <Bigchart user={this.state.user.id} ></Bigchart>
-                  </div>
+                  
+                    <Container fluid="true">
+                <Row >
+                    <Col className="bg-white" lg={{ span: 8, offset: 2 }} md={{ span: 10, offset: 1 }} sm={{ span: 12, offset: 0 }}>
+                        <HomeNav user={this.state.user.id} onRouteChange={this.onRouteChange} updateTransactions={this.updateTransactions} />
+                        <Bigchart user={this.state.user.id} ></Bigchart>
+                </Col>
+                </Row>
+            </Container>
+                  
+                  
                   :
                   route === 'transactions' ?
                     <div>
-                      <Transactions user={this.state.user} onRouteChange={this.onRouteChange} />
+                      <Transactions user={this.state.user.id} onRouteChange={this.onRouteChange} />
                     </div>
-                    :
-                    route === 'goals' ?
-                      <div>
-                        <Goal user={this.state.user} onRouteChange={this.onRouteChange}></Goal>
-                      </div>
-                      : <div>ohasdfasdf</div>
+                    : <div>ohasdfasdf</div>
         }
       </div>
     );
