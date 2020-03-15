@@ -26,22 +26,21 @@ class Goal extends React.Component {
     // }
 
     onSubmitGoal = () => {
-        //by default, fetch does a get request
-        // fetch('http://localhost:9000/users/add', {
-        //     method: 'post',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify({
-        //         Goal: this.state.Goal
-        //     })
-        // })
-        //     .then(response => response.json())
-        //     .then(user => {
-        //         if (user._id) {
-        //             this.props.loadUser(user);
-        //             this.props.onRouteChange('home');
-        //         }
-        //     })
-        this.props.onRouteChange('home');
+        fetch('http://localhost:9000/users/addGoal', {
+            method: 'post',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                goal: this.state.Goal,
+                id: this.props.user.id
+            })
+        })
+            .then(response => response.json())
+            .then(user => {
+                //if (user._id) {
+                this.props.loadUser(user);
+                this.props.onRouteChange('home');
+                //}
+            })
     }
 
 
@@ -49,24 +48,26 @@ class Goal extends React.Component {
         // const { onRouteChange } = this.props;
         return (
 
-            <Container fluid="true">
-                <Row className="align-items-center">
-                    <Col className="bg-white" lg={{ span: 8, offset: 2 }} md={{ span: 10, offset: 1 }} sm={{ span: 12, offset: 0 }}>
-                        <h1 class="f2 lh-copy i">Tell us about your Goal!</h1>
-                        <form>
-                            <div class="form-group">
-                                <label for="formGroupExampleInput">What is the Maximum you want to spend in one month?</label>
-                                <input onChange={this.onGoalChange} type="text" class="form-control" id="formGroupExampleInput" placeholder="ex: 1000" />
-                            </div>
-                            <input
-                                onClick={this.onSubmitGoal}
-                                className="mb3 b ph4 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
-                                type="submit"
-                                value="Submit" />
-                        </form>
-                    </Col>
-                </Row>
-            </Container>
+            // <Container fluid="true">
+            // <Row className="align-items-center">
+            //     <Col className="bg-white" lg={{ span: 8, offset: 2 }} md={{ span: 10, offset: 1 }} sm={{ span: 12, offset: 0 }}>
+            <div className="bg-light-gray w-50 center mv6 tc shadow-5 br3 ba bw1">
+                <h1 className="f2 lh-copy i">Tell us about your Goal!</h1>
+                <form>
+                    <div className="form-group">
+                        <label for="formGroupExampleInput">What is the Maximum you want to spend in one month?</label>
+                        <input onChange={this.onGoalChange} type="text" className="form-control w-30 center" id="formGroupExampleInput" placeholder="ex: 1000" />
+                    </div>
+                    <input
+                        onClick={this.onSubmitGoal}
+                        className="mb3 b ph4 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
+                        type="submit"
+                        value="Submit" />
+                </form>
+            </div>
+            //     </Col>
+            //     </Row>
+            // </Container>
 
 
         );

@@ -9,6 +9,7 @@ import Particles from 'react-particles-js'
 import Link from './components/Link/Link.js'
 import Bigchart from './components/Charts/Bigchart.js'
 import Transactions from './components/Transactions/transactions'
+import Goal from './components/Goal/Goal'
 import {
   BrowserRouter as Router,
   Switch,
@@ -49,6 +50,8 @@ class App extends React.Component {
         id: '5e6ab82a72602252d7145a68',
         name: '',
         email: '',
+        goal: '',
+        accessToken: ''
       }
     }
   }
@@ -58,7 +61,9 @@ class App extends React.Component {
       user: {
         id: data._id,
         name: data.name,
-        email: data.email
+        email: data.email,
+        accessToken: data.accessToken,
+        goal: data.goal
       }
     })
   }
@@ -77,11 +82,13 @@ class App extends React.Component {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        accessToken: res
+        accessToken: res,
+        days: 30
       })
     })
       .then(response => response.json())
       .then(res => {
+        console.log(res.transactions);
         fetch("http://localhost:9000/users/update/transactions", {
           method: 'post',
           headers: { 'Content-Type': 'application/json' },
@@ -123,29 +130,35 @@ class App extends React.Component {
               :
               route === 'link' ?
                 <div>
-                  <Link user={this.state.user.id} onRouteChange={this.onRouteChange} updateTransactions={this.updateTransactions} />
+                  <Link user={this.state.user.id} loadUser={this.loadUser} onRouteChange={this.onRouteChange} updateTransactions={this.updateTransactions} />
                   asdf
                 </div>
 
                 :
                 route === 'home' ?
-                  
-                    <Container fluid="true">
-                <Row >
-                    <Col className="bg-white" lg={{ span: 8, offset: 2 }} md={{ span: 10, offset: 1 }} sm={{ span: 12, offset: 0 }}>
+
+                  <Container fluid="true">
+                    <Row >
+                      <Col className="bg-white" lg={{ span: 8, offset: 2 }} md={{ span: 10, offset: 1 }} sm={{ span: 12, offset: 0 }}>
                         <HomeNav user={this.state.user.id} onRouteChange={this.onRouteChange} updateTransactions={this.updateTransactions} />
                         <Bigchart user={this.state.user.id} ></Bigchart>
-                </Col>
-                </Row>
-            </Container>
-                  
-                  
+                      </Col>
+                    </Row>
+                  </Container>
+
+
                   :
                   route === 'transactions' ?
                     <div>
-                      <Transactions user={this.state.user.id} onRouteChange={this.onRouteChange} />
+                      <HomeNav user={this.state.user.id} onRouteChange={this.onRouteChange} updateTransactions={this.updateTransactions} />
+                      <Transactions user={this.state.user} onRouteChange={this.onRouteChange} />
                     </div>
-                    : <div>ohasdfasdf</div>
+                    :
+                    route === 'goals' ?
+                      <div>
+                        <Goal loadUser={this.loadUser} user={this.state.user} onRouteChange={this.onRouteChange}></Goal>
+                      </div>
+                      : <div>ohasdfasdf</div>
         }
       </div>
     );
