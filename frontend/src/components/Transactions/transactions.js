@@ -7,7 +7,12 @@ export default class Transactions extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { trans: [] };
+        this.state = {
+            trans: [],
+            categories: {},
+            filter: false,
+            transFiltered: []
+        };
     }
 
 
@@ -24,6 +29,20 @@ export default class Transactions extends React.Component {
             .then(response => response.json())
             .then(res => {
                 this.setState({ trans: res });
+                var temp = res;
+                var cats = [];
+                var data = {};
+                temp.map(indx => {
+                    cats.push(indx[1][0]);
+                })
+                for (var x = 0; x < cats.length; x++) {
+                    if (cats[x] in data) {
+                        data[cats[x]] = data[cats[x]].concat(x);
+                    }
+                    else
+                        data[cats[x]] = [x];
+                }
+                this.setState({ categories: data });
             });
 
     }
@@ -50,8 +69,42 @@ export default class Transactions extends React.Component {
                 });
                 this.setState({ trans: transac });
                 console.log(this.state.trans);
+                var cats = [];
+                var data = {};
+                transac.map(indx => {
+                    cats.push(indx[1][0]);
+                })
+                for (var x = 0; x < cats.length; x++) {
+                    if (cats[x] in data) {
+                        data[cats[x]] = data[cats[x]].concat(x);
+                    }
+                    else
+                        data[cats[x]] = [x];
+                }
+                this.setState({ categories: data });
             });
+    }
+    onCats = (cat) => {
+        if (cat == "none") {
+            console.log("here")
+            this.setState({ filter: false });
+        }
+        else {
+            var transactions = []
+            var indexes = [];
+            var filt = [];
+            transactions = this.state.trans
+            indexes = this.state.categories[cat['key']];
+            console.log(indexes);
+            filt = indexes.map(indx => {
+                return this.state.trans[indx];
+            })
+            this.setState({
+                transFiltered: filt,
+                filter: true
+            })
 
+        }
 
     }
 
@@ -60,15 +113,29 @@ export default class Transactions extends React.Component {
             <Container fluid="true">
                 <Row>
                     <Col className="bg-white" lg={{ span: 8, offset: 2 }} md={{ span: 10, offset: 1 }} sm={{ span: 12, offset: 0 }}>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-danger">Action</button>
-                            <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div class="btn-group left-1">
+                            <button type="button" class="btn btn-primary">Days</button>
+                            <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="sr-only">Toggle Dropdown</span>
                             </button>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" onClick={() => this.onSelect(30)}>30</a>
                                 <a class="dropdown-item" onClick={() => this.onSelect(60)}>60</a>
                                 <a class="dropdown-item" onClick={() => this.onSelect(90)}>90</a>
+                            </div>
+                        </div>
+                        <div class="btn-group left-2">
+                            <button type="button" class="btn btn-primary">Categories</button>
+                            <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <div class="dropdown-menu">
+                                {Object.keys(this.state.categories).map(key => {
+                                    return (
+                                        <a class="dropdown-item" onClick={() => this.onCats({ key })}>{key}</a>
+                                    )
+                                })}
+                                <a class="dropdown-item" onClick={() => this.onCats("none")}>None</a>
                             </div>
                         </div>
                     </Col>
@@ -85,17 +152,34 @@ export default class Transactions extends React.Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {this.state.trans.map(trans => {
-                                    return (
-                                        <tr>
-                                            <th scope="row">${trans[0]}</th>
-                                            <td>{trans[2]} </td>
-                                            <td>{trans[1].join(", ")}</td>
-                                            <td>@{trans[3]}</td>
+                                {this.state.filter === false
+                                    ?
+                                    this.state.trans.map(trans => {
+                                        return (
+                                            <tr>
+                                                <th scope="row">${trans[0]}</th>
+                                                <td>{trans[2]} </td>
+                                                <td>{trans[1].join(", ")}</td>
+                                                <td>{trans[3]}</td>
+                                            </tr>
+                                        )
+                                    })
 
-                                        </tr>
-                                    )
-                                })}
+                                    :
+                                    this.state.filter === true
+                                        ?
+                                        this.state.transFiltered.map(trans => {
+                                            return (
+                                                <tr>
+                                                    <th scope="row">${trans[0]}</th>
+                                                    <td>{trans[2]} </td>
+                                                    <td>{trans[1].join(", ")}</td>
+                                                    <td>{trans[3]}</td>
+                                                </tr>
+                                            )
+                                        })
+                                        : <div>oh shoot</div>
+                                }
                             </tbody>
                         </table>
 

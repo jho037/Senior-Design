@@ -9,6 +9,7 @@ const userSchema = new Schema({
     phonenumber: { type: Number, required: true },
     accessToken: { type: String, required: false },
     transactions: { type: Array, required: false },
+    goal: { type: Number, required: false },
 }, {
     timestamps: true,
 });

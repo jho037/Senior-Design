@@ -17,7 +17,8 @@
     "moment": "^2.24.0",
     "mongoose": "^5.9.1",
     "morgan": "~1.9.1",
-    "plaid": "^4.8.0"
+    "plaid": "^4.8.0",
+    "react-plaid-link": "^1.5.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"

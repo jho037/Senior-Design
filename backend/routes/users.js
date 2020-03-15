@@ -51,6 +51,20 @@ router.route('/update/access').post((req, res) => {
     .catch(err => res.status(400).json('Errors: ' + err));
 });
 
+router.route('/addGoal').post((req, res) => {
+  const id = req.body.id;
+  const goal = req.body.goal;
+  User.findById(id)
+    .then(user => {
+      user.goal = goal;
+
+      user.save()
+        .then(() => res.json(user))
+        .catch(err => res.status(400).json('Error: ' + err));
+    })
+    .catch(err => res.status(400).json('Errors: ' + err));
+});
+
 router.route('/update/transactions').post((req, res) => {
   const id = req.body.id;
   const transactions = req.body.transactions;
@@ -188,14 +202,14 @@ router.route("/lineChartTrans").post((req, res) => {
       }
       dats = Object.keys(data).reverse();
       amou = Object.values(data).reverse();
-      famou = amou.map(indx=>{
+      famou = amou.map(indx => {
         // famou.push(Math.floor((indx)*100)/100);
-        return (Math.floor((indx)*100)/100);
+        return (Math.floor((indx) * 100) / 100);
       })
       console.log(dats);
       console.log(famou);
-      
-      
+
+
       res.json({ dates: dats, lamounts: famou });
     })
 });
