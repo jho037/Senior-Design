@@ -136,9 +136,56 @@ router.route("/pieChartTrans").post((req, res) => {
       }
       cats = Object.keys(data)
       amou = Object.values(data)
-      res.json({ categories: cats, amounts: amou });
+      res.json({ categories: cats, pamounts: amou });
     })
 });
 
+router.route("/lineChartTrans").post((req, res) => {
+  var trans = [];
+  User.findById(req.body.id)
+    .then(user => {
+      trans = user.transactions.map(indx => {
+        temp = [];
+        if (indx.amount > 0) {
+          temp.push(indx.amount);
+          temp.push(indx.date.substring(5));
+        }
+        // temp.push(indx.amount);
+        // temp.push(indx.date);
+        return temp;
+      });
+      var dats = [];
+      var amou = [];
+      var famou = [];
+      var data = {};
+      trans.map(indx => {
+        if (indx[0] > 0) {
+          amou.push(indx[0]);
+          dats.push(indx[1]);
+        }
+      })
+      console.log(dats);
+      console.log(amou);
+      for (var x = 0; x < dats.length; x++) {
+        if (dats[x] in data) {
+          data[dats[x]] = data[dats[x]] + amou[x];
+        }
+        else {
+          data[dats[x]] = amou[x];
+        }
+      }
+      dats = Object.keys(data).reverse();
+      amou = Object.values(data).reverse();
+      famou = amou.map(indx=>{
+        // famou.push(Math.floor((indx)*100)/100);
+        return (Math.floor((indx)*100)/100);
+      })
+      console.log(dats);
+      console.log(famou);
+      
+      
+      res.json({ dates: dats, lamounts: famou });
+    })
+});
 
 module.exports = router;

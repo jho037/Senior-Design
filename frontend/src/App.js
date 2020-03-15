@@ -46,7 +46,7 @@ class App extends React.Component {
       route: 'landing',
       isSignedIn: false,
       user: {
-        id: '5e5f054af2ef047d32fbb4a7',
+        id: '5e6ab82a72602252d7145a68',
         name: '',
         email: '',
       }
@@ -129,10 +129,17 @@ class App extends React.Component {
 
                 :
                 route === 'home' ?
-                  <div>
-                    <HomeNav user={this.state.user.id} onRouteChange={this.onRouteChange} updateTransactions={this.updateTransactions} />
-                    <Bigchart user={this.state.user.id} ></Bigchart>
-                  </div>
+                  
+                    <Container fluid="true">
+                <Row >
+                    <Col className="bg-white" lg={{ span: 8, offset: 2 }} md={{ span: 10, offset: 1 }} sm={{ span: 12, offset: 0 }}>
+                        <HomeNav user={this.state.user.id} onRouteChange={this.onRouteChange} updateTransactions={this.updateTransactions} />
+                        <Bigchart user={this.state.user.id} ></Bigchart>
+                </Col>
+                </Row>
+            </Container>
+                  
+                  
                   :
                   route === 'transactions' ?
                     <div>
