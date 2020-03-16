@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Jumbotron } from 'react-bootstrap';
 import Landing from './components/Landing/Landing.js'
 import HomeNav from './components/HomeNav/HomeNav'
 import SignIn from './components/SignIn/SignIn'
@@ -104,6 +104,7 @@ class App extends React.Component {
     const { isSignedIn, route } = this.state;
     return (
       <div>
+
         {/* <Link user={this.state.user.id} /> */}
         {/* <SignIn></SignIn> */}
         {/* <Register></Register> */}
@@ -137,11 +138,11 @@ class App extends React.Component {
                 :
                 route === 'home' ?
 
-                  <Container fluid="true">
+                  <Container fluid="true" >
                     <Row >
                       <Col className="bg-white" lg={{ span: 8, offset: 2 }} md={{ span: 10, offset: 1 }} sm={{ span: 12, offset: 0 }}>
                         <HomeNav user={this.state.user.id} onRouteChange={this.onRouteChange} updateTransactions={this.updateTransactions} />
-                        <Bigchart user={this.state.user.id} ></Bigchart>
+                        <Bigchart user={this.state.user} ></Bigchart>
                       </Col>
                     </Row>
                   </Container>
