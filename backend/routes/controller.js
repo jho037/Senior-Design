@@ -12,6 +12,9 @@ var ITEM_ID = null;
 
 // Initialize the Plaid client
 var client = new plaid.Client(
+    // "5e4331492dd19f001380626b",
+    // "46f7b9098cf7c0ace6dd82e5a209a7",
+    // "d393e49d5cd80df0a7d0ac6562875a",
     "5e4331492dd19f001380626b",
     "f2708e7b9ee104f0d78f5c9827a553",
     "d393e49d5cd80df0a7d0ac6562875a",
@@ -39,12 +42,12 @@ const receivePublicToken = (req, res) => {
 const getTransactions = (req, res) => {
     // Pull transactions for the last 30 days
     let startDate = moment()
-        .subtract(30, "days")
+        .subtract(req.body.days, "days")
         .format("YYYY-MM-DD");
     let endDate = moment().format("YYYY-MM-DD");
-    console.log("made it past variables");
+    console.log(req.body.accessToken);
     client.getTransactions(
-        "access-development-911053bb-88f6-4cec-84cf-af346e7e8cbc",
+        req.body.accessToken,
         startDate,
         endDate,
         {
@@ -55,6 +58,7 @@ const getTransactions = (req, res) => {
             res.json({ transactions: transactionsResponse.transactions });
             // TRANSACTIONS LOGGED BELOW! 
             // They will show up in the terminal that you are running nodemon in.
+            console.log("backend plaid transactions");
             console.log(transactionsResponse.transactions);
         }
     );
