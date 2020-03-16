@@ -1,12 +1,15 @@
 .jumbo{
-    background-image: url(https://d3v5ezchayoty7.cloudfront.net/wp-content/uploads/2018/09/20191649/Budget-Blog-Banner.jpg);
-    background-position: center; /* Center the image */
+    background-image: url(./banner.png);
+    background-position: top; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover; /* Resize the background image to cover the entire container */
     /* min-height: 350px; */
     /* max-height: 250px; */
 }
-
+.container{
+  display:flex;
+  align-items:center;
+}
 #title {
   font-family: Impact, Charcoal, sans-serif;
   /* font-weight: bold; */

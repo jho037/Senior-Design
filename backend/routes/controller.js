@@ -58,8 +58,8 @@ const getTransactions = (req, res) => {
             res.json({ transactions: transactionsResponse.transactions });
             // TRANSACTIONS LOGGED BELOW! 
             // They will show up in the terminal that you are running nodemon in.
-            // console.log("backend plaid transactions");
-            // console.log(transactionsResponse.transactions);
+            console.log("backend plaid transactions");
+            console.log(transactionsResponse.transactions);
         }
     );
 };
@@ -71,7 +71,7 @@ const getProgressTransactions = (req, res) => {
     let startDate = moment(year + "-" + month + "-1").format("YYYY-MM-DD")
 
     let endDate = moment().format("YYYY-MM-DD");
-
+    console.log(req.body.accessToken);
     client.getTransactions(
         req.body.accessToken,
         startDate,

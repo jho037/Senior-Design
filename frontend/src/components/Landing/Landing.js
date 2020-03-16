@@ -28,14 +28,8 @@ export default class Banner extends React.Component {
                             </Nav>
                         </Navbar>
                         <p>{this.state.apiResponse}</p>
-                        <Jumbotron className="jumbo">
-                            <div className="bg-near-white o-60 w-60-ns w-40-l ">
-                                <h1 className="black ws-normal-ns mv0-ns Calisto b">Financial Management</h1>
-                                <div className="col-sm-7 col-lg-6 text-black i tl pl0">
-                                    We help locate your banking on one platform and financially display your budgeting and expenses.
-                    </div>
-                            </div>
-                            <Button className="grow pointer mv3-ns w-30" onClick={() => onRouteChange('register')} variant="primary">Get Started</Button>
+                        <Jumbotron className="jumbo d-flex">
+                            <Button className="grow pointer mv3-ns w-30 h-25 justify-content-center align-self-center " onClick={() => onRouteChange('register')} variant="primary">Get Started</Button>
                         </Jumbotron>
                         {/* <CardDeck>
                     <Card>

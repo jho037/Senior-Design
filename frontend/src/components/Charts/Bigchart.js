@@ -1,8 +1,11 @@
 import Chart from './Chart';
 import React from 'react';
-import { MDBProgress } from 'mdbreact';
+import { MDBProgress, MDBTypography } from 'mdbreact';
 import { Container, Row, Col, Card, CardDeck, ListGroup, ListGroupItem } from 'react-bootstrap';
 import Transactions from '../Transactions/transactions';
+import './Bigchart.css';
+import Cal from '../Cal/Cal';
+import 'react-calendar/dist/Calendar.css'
 
 export default class Bigchart extends React.Component {
     constructor(props) {
@@ -16,7 +19,8 @@ export default class Bigchart extends React.Component {
             dates: [],
             lamounts: [],
             total: 0,
-            percent: 0
+            percent: 0,
+            calendarData: []
         }
     }
 
@@ -125,28 +129,89 @@ export default class Bigchart extends React.Component {
         });
     }
 
+    onCLickHandle = (date) => {
+        var value = date.toLocaleDateString("en-CA")
+        fetch("http://localhost:9000/users/searchTrans", {
+            method: 'post',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                id: this.props.user.id
+            })
+        })
+            .then(response => response.json())
+            .then(res => {
+                var trans = [];
+                trans = res;
+                var result = [];
+                result = trans.filter(indx => indx[3] == value);
+                this.setState({
+                    calendarData: result
+                })
+            });
+    }
 
 
     render() {
         return (
             <div className="Bigchart">
-                <Container fluid>
-                    <Chart pieData={this.state.pieData} lineData={this.state.lineData} legendPosition="bottom" />
-                    <Card className="text-center mt-5">
-                        <Card.Header>Monthly Goal Progress</Card.Header>
-                        <ListGroup variant="flush">
-                            <ListGroup.Item className="bg-light-gray">Your Goal: ${this.props.user.goal}</ListGroup.Item>
-                            <ListGroup.Item className="bg-light-gray">Total Spent: ${this.state.total}</ListGroup.Item>
-                            <ListGroup.Item className="bg-light-gray">Remaining: ${this.props.user.goal - this.state.total}</ListGroup.Item>
-                            <ListGroup.Item className="bg-light-gray">
-                                <MDBProgress className="mt-3 m bg-white" material value={this.state.percent} striped>
-                                    {this.state.percent}%
+                {/* <Container fluid> */}
+                <MDBTypography className="head" tag='h1' variant="h1-responsive">Welcome Back, {this.props.user.name}</MDBTypography>
+                <Chart pieData={this.state.pieData} lineData={this.state.lineData} legendPosition="bottom" />
+                <Card className="text-center mt-5">
+                    <Card.Header>Monthly Goal Progress</Card.Header>
+                    <ListGroup variant="flush">
+                        <ListGroup.Item className="bg-light-gray">Your Goal: ${this.props.user.goal}</ListGroup.Item>
+                        <ListGroup.Item className="bg-light-gray">Total Spent: ${this.state.total}</ListGroup.Item>
+                        <ListGroup.Item className="bg-light-gray">Remaining: ${this.props.user.goal - this.state.total}</ListGroup.Item>
+                        <ListGroup.Item className="bg-light-gray">
+                            <MDBProgress className="mt-3 m bg-white" material value={this.state.percent} striped animated>
+                                {this.state.percent}%
                                 </MDBProgress>
-                            </ListGroup.Item>
-                        </ListGroup>
-                    </Card>
+                        </ListGroup.Item>
+                    </ListGroup>
+                </Card>
+                <Container fluid>
+                    <Row center>
+                        <Col auto >
+                            <div className='mt-5 mb-5 '>
+                                <Cal d-block
+                                    onCLickHandle={this.onCLickHandle}
+                                />
+                            </div>
+                        </Col>
+                        {/* </Row>
+                    <Row> */}
+                        <Col auto className="bg-white">
+                            <div className="table-wrapper-scroll-y my-custom-scrollbar mt-5">
+                                <table responsive className="table table-bordered table-striped mb-5">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Amount</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Categories</th>
+                                            <th scope="col">Dates</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {this.state.calendarData.map(trans => {
+                                            return (
+                                                <tr>
+                                                    <th scope="row">${trans[0]}</th>
+                                                    <td>{trans[2]} </td>
+                                                    <td>{trans[1].join(", ")}</td>
+                                                    <td>{trans[3]}</td>
+                                                </tr>
+                                            )
+                                        })
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </Col>
+                    </Row>
+
                 </Container>
-            </div>
+            </div >
         )
     }
 }

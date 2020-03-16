@@ -10,6 +10,7 @@ import Link from './components/Link/Link.js'
 import Bigchart from './components/Charts/Bigchart.js'
 import Transactions from './components/Transactions/transactions'
 import Goal from './components/Goal/Goal'
+import Cal from './components/Cal/Cal'
 import {
   BrowserRouter as Router,
   Switch,
