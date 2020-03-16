@@ -200,13 +200,20 @@ router.route("/pieChartTrans").post((req, res) => {
       })
       for (var x = 0; x < cats.length; x++) {
         if (cats[x] in data) {
-          data[cats[x]] = data[cats[x]] + amou[x];
+          if (amou[x] > 0) {
+            data[cats[x]] = data[cats[x]] + amou[x];
+          }
         }
         else
-          data[cats[x]] = amou[x];
+          if (amou[x] > 0) {
+            data[cats[x]] = amou[x];
+          }
       }
       cats = Object.keys(data)
       amou = Object.values(data)
+      amou = amou.map(indx => {
+        return (Math.floor((indx) * 100) / 100)
+      })
       res.json({ categories: cats, pamounts: amou });
     })
 });

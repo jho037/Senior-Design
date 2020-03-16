@@ -2,6 +2,10 @@
   width: 100vh;
   height: 100vh;
 }
+
+.container-fluid{
+  height:100vh
+}
 #features{ 
   width: 100vh;
   height: 100vh;
