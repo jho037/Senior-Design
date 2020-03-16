@@ -11,6 +11,7 @@ import Bigchart from './components/Charts/Bigchart.js'
 import Transactions from './components/Transactions/transactions'
 import Goal from './components/Goal/Goal'
 import Accsettings from './components/Accsettings/Accsettings'
+import Cal from './components/Cal/Cal'
 import {
   BrowserRouter as Router,
   Switch,

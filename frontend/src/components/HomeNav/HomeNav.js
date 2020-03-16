@@ -50,8 +50,8 @@ class HomeNav extends React.Component {
         const { onRouteChange } = this.props;
         return(
             <div>
-                <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                    <a className="navbar-brand" onClick={() => onRouteChange('home')} href="#">FinMan</a>
+                <nav className="navbar navbar-expand-lg bg-gray">
+                    <a className="navbar-brand text-white" onClick={() => onRouteChange('home')} href="#">FinMan</a>
                     <img className="resize pointer" onClick={() => onRouteChange('home')} src="https://img.icons8.com/ios-filled/50/000000/airplane-tail-fin.png" />
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
@@ -59,13 +59,13 @@ class HomeNav extends React.Component {
                     <div className="collapse navbar-collapse" id="navbarNavDropdown">
                         <ul className="navbar-nav ml-auto">
                         <li className="nav-item">
-                            <a className="nav-link" onClick={() => onRouteChange('transactions')} href="#">Transactions</a>
+                            <a className="nav-link text-white grow" onClick={() => onRouteChange('transactions')} href="#">Transactions</a>
                         </li> 
                         <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a className="nav-link dropdown-toggle text-white grow" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Profile
                             </a>
-                            <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <div className="dropdown-menu text-white" aria-labelledby="navbarDropdownMenuLink">
                             <a className="dropdown-item" onClick={() => onRouteChange('Accsettings')} href="#">Account Settings</a>
                             <a className="dropdown-item" href="#">Sign Out</a>
                             </div>

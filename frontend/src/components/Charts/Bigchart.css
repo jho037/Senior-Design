@@ -1,0 +1,12 @@
+.head{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.my-custom-scrollbar {
+position: relative;
+height: 400px;
+overflow: auto;
+min-width: 400px;
+}
+.table-wrapper-scroll-y {
+max-height: 350px;
+}
