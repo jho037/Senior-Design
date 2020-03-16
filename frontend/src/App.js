@@ -45,7 +45,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      route: 'home',
+      route: 'landing',
       isSignedIn: false,
       user: {
         id: '5e6ea5583dec336c94d6ba23',
@@ -105,7 +105,6 @@ class App extends React.Component {
     const { isSignedIn, route } = this.state;
     return (
       <div>
-
         {/* <Link user={this.state.user.id} /> */}
         {/* <SignIn></SignIn> */}
         {/* <Register></Register> */}
@@ -133,7 +132,7 @@ class App extends React.Component {
               route === 'link' ?
                 <div>
                   <Link user={this.state.user.id} loadUser={this.loadUser} onRouteChange={this.onRouteChange} updateTransactions={this.updateTransactions} />
-                  asdf
+                  
                 </div>
 
                 :
@@ -149,6 +148,11 @@ class App extends React.Component {
                   </Container>
 
 
+                  :
+                  route === 'goal' ?
+                  <div>
+                    <Goal></Goal>
+                  </div>
                   :
                   route === 'transactions' ?
                     <div>
