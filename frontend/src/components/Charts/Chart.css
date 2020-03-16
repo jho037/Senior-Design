@@ -3,7 +3,9 @@
     width: 96%;
     display: inline-block;
 }
-
+.container-fluid{
+    height: 100vh;
+}
 .sub.wrapper {
     height: 300px;
     width: 300px;
