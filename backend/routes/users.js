@@ -8,6 +8,8 @@ router.route('/').get((req, res) => {
   User.find()
     .then(users => res.json(users))
     .catch(err => res.status(400).json('Errors: ' + err));
+  const hash = bcrypt.hashSync("a", 10);
+  console.log(hash);
 });
 
 router.route('/add').post((req, res) => {
@@ -44,6 +46,63 @@ router.route('/update/access').post((req, res) => {
     .then(user => {
       user.accessToken = accessToken;
 
+      user.save()
+        .then(() => res.json(user))
+        .catch(err => res.status(400).json('Error: ' + err));
+    })
+    .catch(err => res.status(400).json('Errors: ' + err));
+});
+
+router.route('/update/password').post((req, res) => {
+  const id = req.body.id;
+  const currpass = req.body.currpass;
+  const hash = bcrypt.hashSync(req.body.newpass, 10);
+  newpass = hash;
+  User.findById(id)
+    .then(user => {
+      console.log(user.password)
+      bcrypt.compare(currpass, user.password).then((result) => {
+        if (result) {
+          user.password = newpass;
+          user.save()
+            .then(() => res.json(user))
+            .catch(err => res.status(400).json('Error: ' + err));
+        }
+        else {
+          res.send("1");
+        }
+      });
+    })
+    .catch(err => res.status(400).json('Errors: ' + err));
+});
+
+router.route('/update/email').post((req, res) => {
+  const id = req.body.id;
+  const curremail = req.body.curremail;
+  const newemail = req.body.newemail;
+  User.findById(id)
+    .then(user => {
+      if (curremail == user.email) {
+        console.log("changing email")
+        user.email = newemail;
+        user.save()
+          .then(() => res.json(user))
+          .catch(err => res.status(400).json('Error: ' + err));
+      }
+      else {
+        res.send("1");
+      }
+    })
+    .catch(err => res.status(400).json('Errors: ' + err));
+});
+
+router.route('/update/goal').post((req, res) => {
+  const id = req.body.id;
+  const newgoal = req.body.newgoal;
+  User.findById(id)
+    .then(user => {
+      console.log("changing email")
+      user.goal = newgoal;
       user.save()
         .then(() => res.json(user))
         .catch(err => res.status(400).json('Error: ' + err));
