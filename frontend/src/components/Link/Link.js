@@ -63,48 +63,43 @@ class Link extends React.Component {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                 </nav>
-                <div className="top">Almost There!</div>
-                <div className="editme">
-                    <Container fluid="true">
-                        <Row class="row-align-items-center">
-                            <Col lg={{ span: 6, offset: 4 }} md={{ span: 10, offset: 1 }} sm={{ span: 12, offset: 0 }}>
-                                <div class="card-group">
-                                    <div class="card">
-                                        <img class="card-img-top" src="http://pngimg.com/uploads/number1/number1_PNG14906.png" alt="Card image cap" />
-                                        <div class="card-body">
-                                            <h5 class="card-title">Find your Bank</h5>
 
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <img class="card-img-top" src="http://pngimg.com/uploads/number2/Number%202%20PNG%20images%20free%20download_PNG14936.png" alt="Card image cap" />
-                                        <div class="card-body">
-                                            <h5 class="card-title">Connect it to FinMan</h5>
+                <div className="w-50 center mv6">
+                    <div class="card-group">
+                        <div class="card">
+                            <img class="card-img-top" src="http://pngimg.com/uploads/number1/number1_PNG14906.png" alt="Card image cap" />
+                            <div class="card-body">
+                                <h5 class="card-title">Find your Bank</h5>
 
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <img class="card-img-top" src="http://pngimg.com/uploads/number3/number3_PNG14957.png" alt="Card image cap" />
-                                        <div class="card-body">
-                                            <h5 class="card-title">Let FinMan do the rest!</h5>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <img class="card-img-top" src="http://pngimg.com/uploads/number2/Number%202%20PNG%20images%20free%20download_PNG14936.png" alt="Card image cap" />
+                            <div class="card-body">
+                                <h5 class="card-title">Connect it to FinMan</h5>
 
-                                        </div>
-                                    </div>
-                                </div>
-                                <PlaidLink
-                                    clientName="React Plaid Setup"
-                                    env="development"
-                                    product={["auth", "transactions"]}
-                                    publicKey="d393e49d5cd80df0a7d0ac6562875a"
-                                    onExit={this.handleOnExit}
-                                    onSuccess={this.handleOnSuccess}
-                                    className="w-100 mt-3 hover-gray grow"
-                                >
-                                    Click here to connect your bank
+                            </div>
+                        </div>
+                        <div class="card">
+                            <img class="card-img-top" src="http://pngimg.com/uploads/number3/number3_PNG14957.png" alt="Card image cap" />
+                            <div class="card-body">
+                                <h5 class="card-title">Let FinMan do the rest!</h5>
+
+                            </div>
+                        </div>
+                    </div>
+                    <PlaidLink
+                        clientName="React Plaid Setup"
+                        env="development"
+                        product={["auth", "transactions"]}
+                        publicKey="d393e49d5cd80df0a7d0ac6562875a"
+                        onExit={this.handleOnExit}
+                        onSuccess={this.handleOnSuccess}
+                        className="w-100 mt-3 hover-gray grow"
+                    >
+                        Click here to connect your bank
                 </PlaidLink>
-                            </Col>
-                        </Row>
-                    </Container>
+
                 </div>
 
 
