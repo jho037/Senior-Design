@@ -10,6 +10,7 @@ import Link from './components/Link/Link.js'
 import Bigchart from './components/Charts/Bigchart.js'
 import Transactions from './components/Transactions/transactions'
 import Goal from './components/Goal/Goal'
+import Accsettings from './components/Accsettings/Accsettings'
 import Cal from './components/Cal/Cal'
 import {
   BrowserRouter as Router,
@@ -32,10 +33,10 @@ const particlesOptions = {  //used to edit the background particles
 }
 
 const initialState = { //default state for a user, just a function
-  route: 'home',
+  route: 'landing',
   isSignedIn: false,
   user: {
-    id: '5e4c85bebf08774aeaccf307',
+    id: '',
     name: '',
     email: '',
   }
@@ -48,7 +49,7 @@ class App extends React.Component {
       route: 'landing',
       isSignedIn: false,
       user: {
-        id: '5e6ab82a72602252d7145a68',
+        id: '',
         name: '',
         email: '',
         goal: '',
@@ -71,11 +72,16 @@ class App extends React.Component {
 
   onRouteChange = (route) => { //on signout, reset the state to initialState
     if (route === 'signout') {
-      this.setState(initialState)
+      this.setState(initialState);
+      this.setState({ route: "landing" });
     } else if (route === 'home') {
       this.setState({ isSignedIn: true })
+      this.setState({ route: route });
     }
-    this.setState({ route: route });
+    else {
+      this.setState({ route: route });
+    }
+
   }
 
   updateTransactions(res, uid) {
@@ -105,7 +111,6 @@ class App extends React.Component {
     const { isSignedIn, route } = this.state;
     return (
       <div>
-
         {/* <Link user={this.state.user.id} /> */}
         {/* <SignIn></SignIn> */}
         {/* <Register></Register> */}
@@ -133,7 +138,7 @@ class App extends React.Component {
               route === 'link' ?
                 <div>
                   <Link user={this.state.user.id} loadUser={this.loadUser} onRouteChange={this.onRouteChange} updateTransactions={this.updateTransactions} />
-                  asdf
+
                 </div>
 
                 :
@@ -150,17 +155,42 @@ class App extends React.Component {
 
 
                   :
-                  route === 'transactions' ?
+                  route === 'goal' ?
                     <div>
-                      <HomeNav user={this.state.user.id} onRouteChange={this.onRouteChange} updateTransactions={this.updateTransactions} />
-                      <Transactions user={this.state.user} onRouteChange={this.onRouteChange} />
+                      <Goal></Goal>
                     </div>
                     :
-                    route === 'goals' ?
+                    route === 'transactions' ?
                       <div>
-                        <Goal loadUser={this.loadUser} user={this.state.user} onRouteChange={this.onRouteChange}></Goal>
+                        <Container fluid="true">
+                          <Row >
+                            <Col className="bg-white" lg={{ span: 8, offset: 2 }} md={{ span: 10, offset: 1 }} sm={{ span: 12, offset: 0 }}>
+                              <HomeNav user={this.state.user.id} onRouteChange={this.onRouteChange} updateTransactions={this.updateTransactions} />
+                              <Transactions user={this.state.user} onRouteChange={this.onRouteChange} />
+                            </Col>
+                          </Row>
+                        </Container>
+
                       </div>
-                      : <div>ohasdfasdf</div>
+                      :
+                      route === 'goals' ?
+                        <div>
+                          <Goal loadUser={this.loadUser} user={this.state.user} onRouteChange={this.onRouteChange}></Goal>
+                        </div>
+                        :
+                        route === 'Accsettings' ?
+                          <div>
+                            <Container fluid="true">
+                              <Row >
+                                <Col className="bg-white" lg={{ span: 8, offset: 2 }} md={{ span: 10, offset: 1 }} sm={{ span: 12, offset: 0 }}>
+                                  <HomeNav user={this.state.user.id} onRouteChange={this.onRouteChange} updateTransactions={this.updateTransactions} />
+                                  <Accsettings loadUser={this.loadUser} user={this.state.user} onRouteChange={this.onRouteChange}></Accsettings>
+                                </Col>
+                              </Row>
+                            </Container>
+
+                          </div>
+                          : <div>ohasdfasdf</div>
         }
       </div>
     );
