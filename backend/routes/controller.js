@@ -38,6 +38,18 @@ const receivePublicToken = (req, res) => {
 
     });
 };
+const unLink = (req, res) => {
+    // First, receive the public token and set it to a variable
+    let accessToken = req.body.accessToken;
+    // Second, exchange the public token for an access token
+    client.removeItem(accessToken, (err, result) => {
+        // Handle err
+        // The Item has been removed and the
+        // access token is now invalid
+        const isRemoved = result.removed;
+        res.send(isRemoved);
+    });
+};
 
 const getTransactions = (req, res) => {
     // Pull transactions for the last 30 days
@@ -93,5 +105,6 @@ const getProgressTransactions = (req, res) => {
 module.exports = {
     receivePublicToken,
     getTransactions,
-    getProgressTransactions
+    getProgressTransactions,
+    unLink
 };
