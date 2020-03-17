@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Jumbotron, Button, Card, CardDeck } from 'react-bootstrap';
 import { Navbar, Nav } from 'react-bootstrap';
 import { Container, Row, Col } from 'react-bootstrap';
+import './transactions.css';
 
 export default class Transactions extends React.Component {
 
@@ -112,8 +113,8 @@ export default class Transactions extends React.Component {
         return (
             <Container fluid="true">
                 <Row>
-                    <Col className="bg-white" lg={{ span: 8, offset: 2 }} md={{ span: 10, offset: 1 }} sm={{ span: 12, offset: 0 }}>
-                        <div class="btn-group left-1">
+                    <Col >
+                        <div class="btn-group left-1 mt3 mb3">
                             <button type="button" class="btn btn-primary">Days</button>
                             <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="sr-only">Toggle Dropdown</span>
@@ -124,7 +125,7 @@ export default class Transactions extends React.Component {
                                 <a class="dropdown-item" onClick={() => this.onSelect(90)}>90</a>
                             </div>
                         </div>
-                        <div class="btn-group left-2">
+                        <div class="btn-group left-2 mt3 mb3">
                             <button type="button" class="btn btn-primary">Categories</button>
                             <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="sr-only">Toggle Dropdown</span>
@@ -141,7 +142,7 @@ export default class Transactions extends React.Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col className="bg-white" lg={{ span: 8, offset: 2 }} md={{ span: 10, offset: 1 }} sm={{ span: 12, offset: 0 }}>
+                    <Col >
                         <table class="table">
                             <thead>
                                 <tr>

@@ -31,7 +31,7 @@ class Chart extends Component {
                                         //maintainAspectRatio: false,
                                         title: {
                                             display: this.props.displayTitle,
-                                            text: 'LINE',
+                                            text: '',
                                             fontSize: 25
                                         },
                                         legend: {
@@ -60,7 +60,7 @@ class Chart extends Component {
                                         //maintainAspectRatio: false,
                                         title: {
                                             display: this.props.displayTitle,
-                                            text: 'PIE',
+                                            text: '',
                                             fontSize: 25
                                         },
                                         legend: {

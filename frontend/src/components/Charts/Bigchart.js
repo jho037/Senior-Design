@@ -168,7 +168,7 @@ export default class Bigchart extends React.Component {
                     <ListGroup variant="flush">
                         <ListGroup.Item className="bg-light-gray">Your Goal: ${this.props.user.goal}</ListGroup.Item>
                         <ListGroup.Item className="bg-light-gray">Total Spent: ${this.state.total}</ListGroup.Item>
-                        <ListGroup.Item className="bg-light-gray">Remaining: ${this.props.user.goal - this.state.total}</ListGroup.Item>
+                        <ListGroup.Item className="bg-light-gray">Remaining: ${Math.floor((this.props.user.goal - this.state.total) * 100) / 100}</ListGroup.Item>
                         <ListGroup.Item className="bg-light-gray">
                             <MDBProgress className="mt-3 m bg-white" material value={this.state.percent} striped animated>
                                 {this.state.percent}%
