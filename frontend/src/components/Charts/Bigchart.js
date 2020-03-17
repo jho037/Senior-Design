@@ -5,7 +5,7 @@ import { Container, Row, Col, Card, CardDeck, ListGroup, ListGroupItem } from 'r
 import Transactions from '../Transactions/transactions';
 import './Bigchart.css';
 import Cal from '../Cal/Cal';
-import 'react-calendar/dist/Calendar.css'
+
 
 export default class Bigchart extends React.Component {
     constructor(props) {
@@ -80,7 +80,7 @@ export default class Bigchart extends React.Component {
                 var per = result / this.props.user.goal
                 this.setState({
                     percent: Math.floor(per * 100),
-                    total: result
+                    total: Math.floor(result * 100) / 100
                 })
             });
 
@@ -144,6 +144,12 @@ export default class Bigchart extends React.Component {
                 trans = res;
                 var result = [];
                 result = trans.filter(indx => indx[3] == value);
+
+                if (result.length == 0) {
+                    result[0] = ["none", ["none"], "none", "none"];
+
+                }
+                console.log(result);
                 this.setState({
                     calendarData: result
                 })
@@ -174,7 +180,7 @@ export default class Bigchart extends React.Component {
                     <Row center>
                         <Col auto >
                             <div className='mt-5 mb-5 '>
-                                <Cal d-block
+                                <Cal
                                     onCLickHandle={this.onCLickHandle}
                                 />
                             </div>
@@ -195,7 +201,7 @@ export default class Bigchart extends React.Component {
                                     <tbody>
                                         {this.state.calendarData.map(trans => {
                                             return (
-                                                <tr>
+                                                < tr >
                                                     <th scope="row">${trans[0]}</th>
                                                     <td>{trans[2]} </td>
                                                     <td>{trans[1].join(", ")}</td>
