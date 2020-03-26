@@ -29,7 +29,7 @@ export default class Banner extends React.Component {
                         </Navbar>
                         <p>{this.state.apiResponse}</p>
                         <Jumbotron className="jumbo d-flex">
-                            <Button className="grow pointer mv3-ns w-30 h-25 justify-content-center align-self-center " onClick={() => onRouteChange('register')} variant="primary">Get Started</Button>
+                            <Button className="grow pointer mv3-ns w-30 h-10 justify-content-center align-self-center " onClick={() => onRouteChange('register')} variant="primary">Get Started</Button>
                         </Jumbotron>
                         {/* <CardDeck>
                     <Card>
